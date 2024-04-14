@@ -1,24 +1,19 @@
-#include <cstddef>
 #include <iostream>
 
 using namespace std;
 
 class Node {
 public:
+  Node *left, *right;
   int data;
-  Node *left;
-  Node *right;
-  Node(int d) {
-    data = d;
-    left = NULL;
-    right = NULL;
-  }
+
+  Node(int val) : data(val), left(NULL), right(NULL) {}
 };
 
-class Solution {
+class Tree {
 public:
   Node *insert(Node *root, int data) {
-    if (root == NULL) {
+    if (root == nullptr) {
       return new Node(data);
     } else {
       Node *cur;
@@ -33,14 +28,33 @@ public:
       return root;
     }
   }
-
   void postOrder(Node *root) {
-    if (root == NULL) {
+    if (root == nullptr) {
       return;
     }
     postOrder(root->left);
     postOrder(root->right);
-    cout << root->data << endl;
+    cout << root->data << " ";
+  }
+};
+
+int main() {
+  Tree tree;
+  int numberOfNodes;
+  Node *root;
+  cin >> numberOfNodes;
+  int val;
+  for (int i = 0; i < numberOfNodes; i++) {
+    cin >> val;
+    if (i == 0) {
+      root = tree.insert(NULL, val);
+    } else {
+      tree.insert(root, val);
+    }
   }
 
-}; // End of Solution
+  tree.postOrder(root);
+  cout << endl;
+
+  return 0;
+}
